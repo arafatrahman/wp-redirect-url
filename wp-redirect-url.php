@@ -55,3 +55,12 @@ function wpru_redirect() {
         }
     }
 }
+
+function delete_wpru_database(){
+    global $wpdb;
+    $wpruTable = 'kau_wp_redirects_url';
+    $sql = "DROP TABLE IF EXISTS $wpruTable";
+    $wpdb->query($sql);
+}
+
+register_deactivation_hook(__FILE__, 'delete_wpru_database');
