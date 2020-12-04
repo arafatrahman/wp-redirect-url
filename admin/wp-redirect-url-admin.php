@@ -1,6 +1,6 @@
 <?php
 
-class wpru_admin {
+class wpru_admin extends wpru_settings {
 
     public static function Init() {
         add_action("admin_menu", array(__CLASS__, "add_wpru_menu"));

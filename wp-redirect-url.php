@@ -16,7 +16,7 @@ define("WPRU_PATH", dirname(__FILE__));
 define('WPRU_ASSETS_DIR_URI', plugins_url('assets', __FILE__));
 
 function WPRU_plugin_load() {
-
+    include_once WPRU_PATH . "/admin/wpru-settings.php";
     if (is_admin()) {
         include_once WPRU_PATH . "/admin/wp-redirect-url-admin.php";
         wpru_admin::Init();
@@ -29,7 +29,6 @@ add_action('admin_enqueue_scripts', 'wpru_admin_styles');
 
 function wpru_admin_styles() {
     $screen = get_current_screen();
-    include_once WPRU_PATH . "/admin/wpru-settings.php";
     if ('toplevel_page_kau-wp-redirect-url' == $screen->id) {
         wp_enqueue_style('wpru_main', plugins_url('assets/css/wpru-main.css', __FILE__), array(), '0.0.1');
         wp_enqueue_script('wpru_main_script', plugins_url('assets/js/wpru-main.js', __FILE__), array(), '0.0.1');
