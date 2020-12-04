@@ -24,3 +24,16 @@ function WPRU_plugin_load() {
 }
 
 WPRU_plugin_load();
+
+add_action('admin_enqueue_scripts', 'wpru_admin_styles');
+
+function wpru_admin_styles() {
+    $screen = get_current_screen();
+            
+    if ('toplevel_page_kau-wp-redirect-url' == $screen->id) {
+        
+        wp_enqueue_style('wpru_main', plugins_url('assets/css/wpru-main.css', __FILE__), array(), '0.0.1');
+       
+        
+    }
+}

@@ -11,7 +11,7 @@ class wpru_admin {
     }
 
     public static function wpru_main_menu() {
-        
+        include_once WPRU_PATH . "/views/wpru-settings-view.php";
     }
 
 }
