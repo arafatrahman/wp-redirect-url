@@ -35,3 +35,24 @@ function wpru_admin_styles() {
         wp_enqueue_script('wpru_main_script', plugins_url('assets/js/wpru-main.js', __FILE__), array(), '0.0.1');
     }
 }
+
+add_action('send_headers', 'wpru_redirect');
+function wpru_redirect() {
+
+    $getSiteurl = get_bloginfo('url');
+    $getAllRedirects = wpru_settings::wpruGetAll();
+
+    if ($getAllRedirects) {
+        foreach ($getAllRedirects as $wpruId) {
+            $wpruRedirectFields = wpru_settings::wpruGetFields($wpruId);
+            $wpruRequestUrl = $wpruRedirectFields ['requestUrl'];
+            $destinationUrl = $wpruRedirectFields ['destinationUrl'];
+            $requestUrl = str_replace($getSiteurl, "", $wpruRequestUrl);
+            $mainLink = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            if ($mainLink == $getSiteurl . $requestUrl) {
+                wp_redirect($destinationUrl, 301);
+                die();
+            }
+        }
+    }
+}
