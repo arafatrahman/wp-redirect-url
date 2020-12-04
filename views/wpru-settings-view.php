@@ -6,7 +6,9 @@
     </div>
 
     <div class="wpru-alert">
-               
+        <?php
+        wpru_settings::wpruSubmission($_POST);
+        ?>        
     </div>
 
     <form action="" method="post">
@@ -19,27 +21,37 @@
             <div class="wpru-action">Action</div>
         </div>
 
-       
+        <?php
+        $custom_redirects = wpru_settings::wpruGetAll();
 
-                <div id="wpruFields" class="kau-action-field-row">
-                    <div class="wpru-name"><input type="text" class="form__field" placeholder="Name of Redirection" name="name[]" /></div> 
-                    <div class="wpru-ru-field"><input type="text" class="form__field" placeholder="input Your Request url" name="requestUrl[]" /></div>
-                    <div class="wpru-du-field"><input type="text" placeholder="Your Destination url Goes Here" name="destinationUrl[]" class="form__field" /></div>  
-                    <div class="wpru-action-field"><a  class="delete-wpru" href="#" ><button type="button" class="block">Remove URL</button></a></div>
+        if ($custom_redirects) {
+            foreach (wpru_settings::wpruGetAll() as $wpruId) {
+
+                $fields = wpru_settings::wpruGetFields($wpruId);
+                ?>
+
+                <div id="wpruFields<?php echo $wpruId; ?>" class="kau-action-field-row">
+                    <div class="wpru-name"><input type="text" class="form__field" placeholder="Name of Redirection" name="name[]" value="<?php echo $fields['name']; ?>"/></div> 
+                    <div class="wpru-ru-field"><input type="text" class="form__field" placeholder="input Your Request url" name="requestUrl[]" value="<?php echo $fields['requestUrl']; ?>"/></div>
+                    <div class="wpru-du-field"><input type="text" placeholder="Your Destination url Goes Here" name="destinationUrl[]" class="form__field" value="<?php echo $fields['destinationUrl']; ?>"/></div>  
+                    <div class="wpru-action-field"><a  class="delete-wpru" href="#" data-id="<?php echo $wpruId; ?>"><button type="button" class="block">Remove URL</button></a></div>
                 </div>
         
                 
 
-       
+                <?php
+            } 
+        }
+        ?>
 
         <div id="addWPRU" class="kau-wpru-btn">
-            <div class="kau-wpru-submit"><button type="submit" class="block-submit" >Save Settings </button></div> 
+            <div class="kau-wpru-submit"><a><button type="submit" class="block-submit" >Save Settings </button></a></div> 
             <div class="wpru-ex"></div>
-            <div class="kau-wpru-add"><button type="button" class="block-remove" >Add Request</button></div> 
+            <div class="kau-wpru-add"><a id="addwpruRow" class="" href="#"><button type="button" class="block-remove" >Add Request</button></a></div> 
             
         </div>
 
         
     </form>
 
-</div>    
+</div>
