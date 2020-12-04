@@ -36,6 +36,7 @@ function wpru_admin_styles() {
 }
 
 add_action('send_headers', 'wpru_redirect');
+
 function wpru_redirect() {
 
     $getSiteurl = get_bloginfo('url');
@@ -56,7 +57,15 @@ function wpru_redirect() {
     }
 }
 
-function delete_wpru_database(){
+
+
+
+add_action( 'activated_plugin', 'wpru_activation' );
+function wpru_activation() {
+ exit( wp_redirect(admin_url('admin.php?page=kau-wp-redirect-url')));
+}
+
+function delete_wpru_database() {
     global $wpdb;
     $wpruTable = 'kau_wp_redirects_url';
     $sql = "DROP TABLE IF EXISTS $wpruTable";
