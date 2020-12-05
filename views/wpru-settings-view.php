@@ -1,8 +1,8 @@
 <div class="wpru-container" style="padding:60px;">
 
     <div class="wpru-heading">
-        <h1>WP Redirect URL</h1>
-    <h2>Helps you to redirect any url anywhere as per request</h2>
+        <h1><?php esc_html_e('WP Redirect URL', 'wp-redirect-url'); ?></h1>
+    <h2><?php esc_html_e('Helps you to redirect any url anywhere as per request', 'wp-redirect-url'); ?></h2>
     </div>
 
     <div class="wpru-alert">
@@ -15,10 +15,10 @@
         <input type="hidden" name="wpru_settings_submit" value="true">
 
         <div class="kau-action-name-row">
-            <div class="wpru-name">Name</div> 
-            <div class="wpru-ru">Request url</div>
-            <div class="wpru-du">Destination url</div>  
-            <div class="wpru-action">Action</div>
+            <div class="wpru-name"><?php esc_html_e('Name', 'wp-redirect-url'); ?></div> 
+            <div class="wpru-ru"><?php esc_html_e('Request url', 'wp-redirect-url'); ?></div>
+            <div class="wpru-du"><?php esc_html_e('Destination url', 'wp-redirect-url'); ?></div>  
+            <div class="wpru-action"><?php esc_html_e('Action', 'wp-redirect-url'); ?></div>
         </div>
 
         <?php
@@ -45,9 +45,9 @@
         ?>
 
         <div id="addWPRU" class="kau-wpru-btn">
-            <div class="kau-wpru-submit"><a><button type="submit" class="block-submit" >Save Settings </button></a></div> 
+            <div class="kau-wpru-submit"><a><button type="submit" class="block-submit" ><?php esc_html_e('Save Settings', 'wp-redirect-url'); ?> </button></a></div> 
             <div class="wpru-ex"></div>
-            <div class="kau-wpru-add"><a id="addwpruRow" class="" href="#"><button type="button" class="block-remove" >Add Request</button></a></div> 
+            <div class="kau-wpru-add"><a id="addwpruRow" class="" href="#"><button type="button" class="block-remove" ><?php esc_html_e('Add Request', 'wp-redirect-url'); ?></button></a></div> 
             
         </div>
 

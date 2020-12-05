@@ -2,11 +2,13 @@
 
 /**
  * Plugin Name: WP Redirect url
- * Plugin URI: http://www.kuaniaweb.com
- * Description: This plugin helps you to redirect any url anywhere as per request . 
- * Version: 0.0.1
+ * Plugin URI: http://www.kuaniaweb.com/wp-redirect-url
+ * Description: Easy to redirect any url anywhere as per request . Create And manage 301 redirects
+ * Version: 1.0.0
  * Author: Arafat Rahman Riyad
- * Author URI: Author's website
+ * Author URI: http://www.kuaniaweb.com/
+ * Text Domain:  wp-redirect-url
+ * Domain Path: /languages
  */
 if (!defined('ABSPATH')) {
     die;
@@ -57,13 +59,6 @@ function wpru_redirect() {
     }
 }
 
-
-
-
-add_action( 'activated_plugin', 'wpru_activation' );
-function wpru_activation() {
- exit( wp_redirect(admin_url('admin.php?page=kau-wp-redirect-url')));
-}
 
 function delete_wpru_database() {
     global $wpdb;
