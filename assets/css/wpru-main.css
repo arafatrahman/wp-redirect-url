@@ -1,8 +1,7 @@
 .wpru-container 
 {
-    margin-top: 25px;
+    margin-top: 10px;
     display:flexbox;
-    width: 100%;
     box-shadow: 10px 0px 71px 5px rgba(59,59,59,0.58);
     background-color: #F7F7F7;
 
@@ -165,4 +164,13 @@ a{
     text-align: center;
     padding-bottom: 25px;
 }
+
+
+.kau-no-request{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+  
+}
+
 

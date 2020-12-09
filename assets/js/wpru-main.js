@@ -3,6 +3,9 @@ jQuery(document).ready(function ($) {
     var wpruId = 0;
 
     $('#addwpruRow').on('click', function (e) {
+        
+        $(".kau-no-request").hide();
+        
         e.preventDefault();
         var newWPRU = '<div id="wpruList' + wpruId + '" class="kau-action-field-row">' +
                 '<div class="wpru-name"><input type="text" class="form__field" placeholder="Name of Redirection" name="name[]" /></div>' +

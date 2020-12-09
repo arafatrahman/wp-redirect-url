@@ -3,10 +3,10 @@
 /**
  * Plugin Name: WP Redirect url
  * Plugin URI: http://www.kuaniaweb.com/wp-redirect-url
- * Description: Easy to redirect any url anywhere as per request . Create And manage 301 redirects
+ * Description: Make And manage 301 redirects with WP Redirect url plugin . Now you can easily redirect any wp url 
  * Version: 1.0.0
  * Author: Arafat Rahman Riyad
- * Author URI: http://www.kuaniaweb.com/
+ * Author URI: http://kauniaweb.com/
  * Text Domain:  wp-redirect-url
  * Domain Path: /languages
  */

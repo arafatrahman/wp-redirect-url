@@ -2,7 +2,7 @@
 
     <div class="wpru-heading">
         <h1><?php esc_html_e('WP Redirect URL', 'wp-redirect-url'); ?></h1>
-    <h2><?php esc_html_e('Helps you to redirect any url anywhere as per request', 'wp-redirect-url'); ?></h2>
+        <h2><?php esc_html_e('Helps you to redirect any url anywhere as per request', 'wp-redirect-url'); ?></h2>
     </div>
 
     <div class="wpru-alert">
@@ -36,22 +36,31 @@
                     <div class="wpru-du-field"><input type="text" placeholder="Your Destination url Goes Here" name="destinationUrl[]" class="form__field" value="<?php echo $fields['destinationUrl']; ?>"/></div>  
                     <div class="wpru-action-field"><a  class="delete-wpru" href="#" data-id="<?php echo $wpruId; ?>"><button type="button" class="block">Remove URL</button></a></div>
                 </div>
-        
-                
+
+
 
                 <?php
-            } 
-        }
+            }
+        } else {
+            ?>
+
+            <div class="kau-no-request">
+                <div class="notice notice-warning is-dismissible">
+                    <p class=" text-success "><strong> You dont have any request right now!</strong> You can redirection request by click <strong>ADD REQUEST</strong> button</p>
+                </div>
+            </div>
+
+        <?php }
         ?>
 
         <div id="addWPRU" class="kau-wpru-btn">
             <div class="kau-wpru-submit"><a><button type="submit" class="block-submit" ><?php esc_html_e('Save Settings', 'wp-redirect-url'); ?> </button></a></div> 
             <div class="wpru-ex"></div>
             <div class="kau-wpru-add"><a id="addwpruRow" class="" href="#"><button type="button" class="block-remove" ><?php esc_html_e('Add Request', 'wp-redirect-url'); ?></button></a></div> 
-            
+
         </div>
 
-        
+
     </form>
 
 </div>

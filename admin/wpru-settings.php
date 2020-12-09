@@ -21,7 +21,7 @@ class wpru_settings {
             }
 
             echo '<div class="notice notice-success is-dismissible">
-            <p class=" text-success "> Settings Saved!</strong> Your Settings Successfully Saved</p>
+            <p class=" text-success "><strong> Settings Saved!</strong> Your Settings Successfully Saved</p>
         </div>';
         }
     }
