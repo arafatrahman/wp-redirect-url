@@ -60,6 +60,30 @@ function wpru_redirect() {
 }
 
 
+if (!function_exists('KAU_POST')) {
+
+    function KAU_POST($key, $array = false) {
+        if ($array) {
+            return filter_input(INPUT_POST, $key, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+        }
+        if (filter_input(INPUT_POST, $key)) {
+            return filter_input(INPUT_POST, $key);
+        }
+        return false;
+    }
+
+}
+
+if (!function_exists('kaupost')) {
+
+    function kaupost($key, $array = false) {
+        return KAU_POST($key, $array);
+    }
+
+}
+
+
+
 function delete_wpru_database() {
     global $wpdb;
     $wpruTable = 'kau_wp_redirects_url';

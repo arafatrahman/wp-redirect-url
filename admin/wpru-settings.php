@@ -7,15 +7,17 @@ class wpru_settings {
 
 
         if (isset($_POST['wpru_settings_submit'])) {
-
+            
             wpru_settings::wpruDeleteUrl();
-
-            if (!empty($_POST['name'])) {
-                $redirectArray = $_POST['name'];
+            
+            if (!empty(kaupost('name',$_POST))) {
+                $redirectArray = kaupost('name',$_POST);
+                
                 foreach ($redirectArray as $key => $redirectName) {
+                    
                     $name = sanitize_text_field($redirectName);
-                    $requestUrl = esc_url($_POST['requestUrl'][$key]);
-                    $destinationUrl = esc_url($_POST['destinationUrl'][$key]);
+                    $requestUrl = kaupost('requestUrl',$_POST)[$key];
+                    $destinationUrl = kaupost('destinationUrl',$_POST)[$key];                    
                     self::wpruUpdateUrl($name, $requestUrl, $destinationUrl);
                 }
             }
@@ -63,7 +65,7 @@ class wpru_settings {
 
     public static function wpruCreateTable() {
         global $wpdb;
-        $sql = "CREATE TABLE kau_wp_redirects_url (id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,name TEXT,requestUrl TEXT, destinationUrl TEXT)";
+        $sql = "CREATE TABLE kau_wp_redirects_url (id BIGINT(25) PRIMARY KEY AUTO_INCREMENT,name TEXT,requestUrl TEXT, destinationUrl TEXT)";
         $wpdb->query($sql);
     }
 
