@@ -2,6 +2,25 @@
 
 class wpru_settings {
     
+            /**
+         * Recursive sanitation for an array
+         * 
+         * @param $array
+         *
+         * @return mixed
+         */
+       public static function recursive_sanitize_text_field($array) {
+            foreach ( $array as $key => &$value ) {
+                if ( is_array( $value ) ) {
+                    $value = self::recursive_sanitize_text_field($value);
+                }
+                else {
+                    $value = sanitize_text_field( $value );
+                }
+            }
+
+            return $array;
+        }
 
     public static function wpruSubmission($isSaved) {
 
@@ -10,18 +29,16 @@ class wpru_settings {
             
             wpru_settings::wpruDeleteUrl();
             
-            $redirectArray = kaupost('name',$_POST);
-            
-            print_r($redirectArray);
-            
+          
+            $redirectArray = self::recursive_sanitize_text_field(kaupost('name',$_POST));
             
             if ($redirectArray) {
                 
                 foreach ($redirectArray as $key => $redirectName) {
                     
                     $name = sanitize_text_field($redirectName);
-                    $requestUrl = esc_url(kaupost('requestUrl',$_POST)[$key]);
-                    $destinationUrl = esc_url(kaupost('destinationUrl',$_POST)[$key]);                    
+                    $requestUrl = esc_url_raw(kaupost('requestUrl',$_POST)[$key]);
+                    $destinationUrl = esc_url_raw(kaupost('destinationUrl',$_POST)[$key]);                    
                     self::wpruUpdateUrl($name, $requestUrl, $destinationUrl);
                 }
             }
