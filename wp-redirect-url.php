@@ -59,7 +59,6 @@ function wpru_redirect() {
     }
 }
 
-
 if (!function_exists('KAU_POST')) {
 
     function KAU_POST($key, $array = false) {
@@ -83,6 +82,18 @@ if (!function_exists('kaupost')) {
 }
 
 
+function recursive_sanitize_text_field($array) {
+
+    foreach ($array as $key => &$value) {
+        if (is_array($value)) {
+            $value = recursive_sanitize_text_field($value);
+        } else {
+            $value = sanitize_text_field($value);
+        }
+    }
+
+    return $array;
+}
 
 function delete_wpru_database() {
     global $wpdb;

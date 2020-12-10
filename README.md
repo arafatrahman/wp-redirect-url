@@ -1,4 +1,5 @@
 === WP Redirect url ===
+
 Plugin Name : WP Redirect url
 Tags: wp redirect url, redirect post, redirect plugin, redirection , 301 redirect, 302 redirect,404, 404 redirect, redirect page,
 Contributors: arafatrahmanbd,abushoaib
@@ -15,10 +16,10 @@ Make And manage 301 redirects with WP Redirect url plugin . Now you can easily r
 
 Easily manage or create 301 redirects with this WP Redirect url plugin .
 If you want, you can easily redirect URL you need through this WP Redirect url plugin .
-You do not have to do any kind of coding for showing recent posts with thumbnail .
+You do not have to do any kind of coding for anage or create 301 redirection .
 Name of redirect field is optional . If You want Redirect properly you can added Request url 
-(old url) And added destination url (new url) . Redirection is compatible with PHP from 5.6 and upwards (including 7.4).
-
+(old url) And added destination url (new url) . If you removed url you need to click removed url
+button and then save settings.Redirection is compatible with PHP from 5.6 and upwards (including 7.4).
 
 
 

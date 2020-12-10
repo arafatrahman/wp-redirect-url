@@ -1,7 +1,6 @@
 <?php
 
 class wpru_settings {
-    
 
     public static function wpruSubmission($isSaved) {
 
@@ -10,18 +9,16 @@ class wpru_settings {
             
             wpru_settings::wpruDeleteUrl();
             
-            $redirectArray = kaupost('name',$_POST);
-            
-            print_r($redirectArray);
-            
+          
+            $redirectArray = recursive_sanitize_text_field(kaupost('name',$_POST));
             
             if ($redirectArray) {
                 
                 foreach ($redirectArray as $key => $redirectName) {
                     
                     $name = sanitize_text_field($redirectName);
-                    $requestUrl = esc_url(kaupost('requestUrl',$_POST)[$key]);
-                    $destinationUrl = esc_url(kaupost('destinationUrl',$_POST)[$key]);                    
+                    $requestUrl = esc_url_raw(kaupost('requestUrl',$_POST)[$key]);
+                    $destinationUrl = esc_url_raw(kaupost('destinationUrl',$_POST)[$key]);                    
                     self::wpruUpdateUrl($name, $requestUrl, $destinationUrl);
                 }
             }
