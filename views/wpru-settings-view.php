@@ -2,7 +2,7 @@
 
     <div class="wpru-heading">
         <h1><?php esc_html_e('WP Redirect URL', 'wp-redirect-url'); ?></h1>
-        <h2><?php esc_html_e('Helps you to redirect any url anywhere as per request', 'wp-redirect-url'); ?></h2>
+        <h3><?php esc_html_e('Now you can easily redirect any wp url and manage 301 redirects ', 'wp-redirect-url'); ?></h3>
     </div>
 
     <div class="wpru-alert">
@@ -27,13 +27,13 @@
         if ($custom_redirects) {
             foreach (wpru_settings::wpruGetAll() as $wpruId) {
 
-                $fields = wpru_settings::wpruGetFields($wpruId);
+                $wpruFields = wpru_settings::wpruGetFields($wpruId);
                 ?>
 
                 <div id="wpruFields<?php echo $wpruId; ?>" class="kau-action-field-row">
-                    <div class="wpru-name"><input type="text" class="form__field" placeholder="Name of Redirection" name="name[]" value="<?php echo $fields['name']; ?>"/></div> 
-                    <div class="wpru-ru-field"><input type="text" class="form__field" placeholder="input Your Request url" name="requestUrl[]" value="<?php echo $fields['requestUrl']; ?>"/></div>
-                    <div class="wpru-du-field"><input type="text" placeholder="Your Destination url Goes Here" name="destinationUrl[]" class="form__field" value="<?php echo $fields['destinationUrl']; ?>"/></div>  
+                    <div class="wpru-name"><input type="text" class="form__field" placeholder="Name of Redirection" name="name[]"  value="<?php echo $wpruFields['name']; ?>"/></div> 
+                    <div class="wpru-ru-field"><input type="text" class="form__field" placeholder="input Your Request url" name="requestUrl[]" required value="<?php echo $wpruFields['requestUrl']; ?>"/></div>
+                    <div class="wpru-du-field"><input type="text" placeholder="Your Destination url Goes Here" name="destinationUrl[]" required class="form__field" value="<?php echo $wpruFields['destinationUrl']; ?>"/></div>  
                     <div class="wpru-action-field"><a  class="delete-wpru" href="#" data-id="<?php echo $wpruId; ?>"><button type="button" class="block">Remove URL</button></a></div>
                 </div>
 
@@ -46,7 +46,7 @@
 
             <div class="kau-no-request">
                 <div class="notice notice-warning is-dismissible">
-                    <p class=" text-success "><strong> You dont have any request right now!</strong> You can redirection request by click <strong>ADD REQUEST</strong> button</p>
+                    <p class=" text-success "><strong> <?php esc_html_e('You dont have any request right now!','wp-redirect-url') ?> </strong> <?php esc_html_e('You can redirection request by click','wp-redirect-url') ?>  <strong><?php esc_html_e('ADD REQUEST','wp-redirect-url') ?> </strong> <?php esc_html_e('button','wp-redirect-url') ?> </p>
                 </div>
             </div>
 

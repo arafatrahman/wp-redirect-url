@@ -10,21 +10,23 @@ class wpru_settings {
             
             wpru_settings::wpruDeleteUrl();
             
-            if (!empty(kaupost('name',$_POST))) {
-                $redirectArray = kaupost('name',$_POST);
+            $redirectArray = kaupost('name',$_POST);
+            
+            print_r($redirectArray);
+            
+            
+            if ($redirectArray) {
                 
                 foreach ($redirectArray as $key => $redirectName) {
                     
                     $name = sanitize_text_field($redirectName);
-                    $requestUrl = kaupost('requestUrl',$_POST)[$key];
-                    $destinationUrl = kaupost('destinationUrl',$_POST)[$key];                    
+                    $requestUrl = esc_url(kaupost('requestUrl',$_POST)[$key]);
+                    $destinationUrl = esc_url(kaupost('destinationUrl',$_POST)[$key]);                    
                     self::wpruUpdateUrl($name, $requestUrl, $destinationUrl);
                 }
             }
-
-            echo '<div class="notice notice-success is-dismissible">
-            <p class=" text-success "><strong> Settings Saved!</strong> Your Settings Successfully Saved</p>
-        </div>';
+            
+            echo '<div class="notice notice-success is-dismissible"><p class=" text-success "><strong> Settings Saved!</strong> Your Settings Successfully Saved</p></div>';
         }
     }
 
@@ -32,28 +34,28 @@ class wpru_settings {
     public static function wpruDeleteUrl() {
 
         global $wpdb;
-        $sql = "DELETE FROM kau_wp_redirects_url";
-        $wpdb->query($sql);
+        $wpruSQL = "DELETE FROM kau_wp_redirects_url";
+        $wpdb->query($wpruSQL);
     }
 
     public static function wpruUpdateUrl($name, $requestUrl, $destinationUrl) {
 
         global $wpdb;
-        $sql = $wpdb->prepare("INSERT INTO kau_wp_redirects_url (name, requestUrl, destinationUrl) VALUES ('%s', '%s', '%s')", array($name, $requestUrl, $destinationUrl));
-        $wpdb->query($sql);
+        $wpruSQL  = $wpdb->prepare("INSERT INTO kau_wp_redirects_url (name, requestUrl, destinationUrl) VALUES ('%s', '%s', '%s')", array($name, $requestUrl, $destinationUrl));
+        $wpdb->query($wpruSQL );
     }
 
     public static function wpruGetFields($id) {
 
         global $wpdb;
-        $sql = $wpdb->prepare("SELECT * FROM kau_wp_redirects_url WHERE id = '%s'", array($id));
-        $getResult = $wpdb->query($sql);
+        $wpruSQL  = $wpdb->prepare("SELECT * FROM kau_wp_redirects_url WHERE id = '%s'", array($id));
+        $getResult = $wpdb->query($wpruSQL );
         if ($getResult) {
             $wpruFields = array();
-            foreach ($wpdb->get_results($sql) as $row) {
-                $wpruFields['name'] = $row->name;
-                $wpruFields['requestUrl'] = $row->requestUrl;
-                $wpruFields['destinationUrl'] = $row->destinationUrl;
+            foreach ($wpdb->get_results($wpruSQL ) as $wpruRow) {
+                $wpruFields['name'] = $wpruRow->name;
+                $wpruFields['requestUrl'] = $wpruRow->requestUrl;
+                $wpruFields['destinationUrl'] = $wpruRow->destinationUrl;
             }
 
             return $wpruFields;
@@ -65,14 +67,14 @@ class wpru_settings {
 
     public static function wpruCreateTable() {
         global $wpdb;
-        $sql = "CREATE TABLE kau_wp_redirects_url (id BIGINT(25) PRIMARY KEY AUTO_INCREMENT,name TEXT,requestUrl TEXT, destinationUrl TEXT)";
-        $wpdb->query($sql);
+        $wpruSQL  = "CREATE TABLE kau_wp_redirects_url (id BIGINT(25) PRIMARY KEY AUTO_INCREMENT,name TEXT,requestUrl TEXT, destinationUrl TEXT)";
+        $wpdb->query($wpruSQL);
     }
 
     public static function checkWpruTable() {
         global $wpdb;
-        $sql = "SHOW TABLES LIKE 'kau_wp_redirects_url'";
-        $result = $wpdb->query($sql);
+        $wpruSQL = "SHOW TABLES LIKE 'kau_wp_redirects_url'";
+        $result = $wpdb->query($wpruSQL);
         if ($result != 1) {
             self::wpruCreateTable();
         }
@@ -82,12 +84,12 @@ class wpru_settings {
         global $wpdb;
         self::checkWpruTable();
 
-        $sql = "SELECT * FROM kau_wp_redirects_url ORDER by id ASC";
+        $wpruSQL = "SELECT * FROM kau_wp_redirects_url ORDER by id ASC";
         
-        if ($wpdb->query($sql)) {
+        if ($wpdb->query($wpruSQL)) {
             $wpruId = array();
-            foreach ($wpdb->get_results($sql) as $row) {
-                $wpruId[] = $row->id;
+            foreach ($wpdb->get_results($wpruSQL) as $wpruRow) {
+                $wpruId[] = $wpruRow->id;
             }
             return $wpruId;
         } else {
