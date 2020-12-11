@@ -8,10 +8,10 @@ jQuery(document).ready(function ($) {
         
         e.preventDefault();
         var newWPRU = '<div id="wpruList' + wpruId + '" class="kau-action-field-row">' +
-                '<div class="wpru-name"><input type="text" class="form__field" placeholder="Name of Redirection" name="name[]" /></div>' +
-                '<div class="wpru-ru-field"><input type="text" class="form__field" placeholder="Request url" name="requestUrl[]" /></div>' +
+                '<div class="wpru-name"><input type="text" placeholder="Name of Redirection" name="wpru-redirect-name[]" /></div>' +
+                '<div class="wpru-ru-field"><input type="text" placeholder="Request url" name="wpru-request-url[]" required /></div>' +
                 '<div class="wpru-du-field">' +
-                '<input type="text" class="form__field" placeholder="Destination url" name="destinationUrl[]" /> ' +
+                '<input type="text" placeholder="Destination url" name="wpru-destination-url[]" required /> ' +
                 '</div>' +
                 '<div class="wpru-action-field">' +
                 '<a href="#" class="remove-wpru" data-id="' + wpruId + '"><button type="button" class="block">Remove URL</button></a></div>' +

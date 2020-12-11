@@ -1,25 +1,25 @@
 <?php
 
-class wpru_settings {
+class WPRU_settings {
 
-    public static function wpruSubmission($isSaved) {
+    public static function wpru_submission($isSaved) {
 
 
-        if (isset($_POST['wpru_settings_submit'])) {
+        if (isset($_POST['wpru-settings-submit'])) {
             
-            wpru_settings::wpruDeleteUrl();
+            WPRU_settings::wpru_delete_url();
             
           
-            $redirectArray = recursive_sanitize_text_field(kaupost('name',$_POST));
+            $redirectArray = wpru_sanitize_text_field(wpru_post_value('wpru-redirect-name',$_POST));
             
             if ($redirectArray) {
                 
                 foreach ($redirectArray as $key => $redirectName) {
                     
                     $name = sanitize_text_field($redirectName);
-                    $requestUrl = esc_url_raw(kaupost('requestUrl',$_POST)[$key]);
-                    $destinationUrl = esc_url_raw(kaupost('destinationUrl',$_POST)[$key]);                    
-                    self::wpruUpdateUrl($name, $requestUrl, $destinationUrl);
+                    $requestUrl = esc_url_raw(wpru_post_value('wpru-request-url',$_POST)[$key]);
+                    $destinationUrl = esc_url_raw(wpru_post_value('wpru-destination-url',$_POST)[$key]);                    
+                    self::wpru_update_url($name, $requestUrl, $destinationUrl);
                 }
             }
             
@@ -28,31 +28,31 @@ class wpru_settings {
     }
 
 
-    public static function wpruDeleteUrl() {
+    public static function wpru_delete_url() {
 
         global $wpdb;
-        $wpruSQL = "DELETE FROM kau_wp_redirects_url";
+        $wpruSQL = "DELETE FROM wpru_dbtable";
         $wpdb->query($wpruSQL);
     }
 
-    public static function wpruUpdateUrl($name, $requestUrl, $destinationUrl) {
+    public static function wpru_update_url($name, $requestUrl, $destinationUrl) {
 
         global $wpdb;
-        $wpruSQL  = $wpdb->prepare("INSERT INTO kau_wp_redirects_url (name, requestUrl, destinationUrl) VALUES ('%s', '%s', '%s')", array($name, $requestUrl, $destinationUrl));
+        $wpruSQL  = $wpdb->prepare("INSERT INTO wpru_dbtable (wpru_redirect_name, wpru_request_url, wpru_destination_url) VALUES ('%s', '%s', '%s')", array($name, $requestUrl, $destinationUrl));
         $wpdb->query($wpruSQL );
     }
 
-    public static function wpruGetFields($id) {
+    public static function wpru_get_fields($id) {
 
         global $wpdb;
-        $wpruSQL  = $wpdb->prepare("SELECT * FROM kau_wp_redirects_url WHERE id = '%s'", array($id));
+        $wpruSQL  = $wpdb->prepare("SELECT * FROM wpru_dbtable WHERE id = '%s'", array($id));
         $getResult = $wpdb->query($wpruSQL );
         if ($getResult) {
             $wpruFields = array();
             foreach ($wpdb->get_results($wpruSQL ) as $wpruRow) {
-                $wpruFields['name'] = $wpruRow->name;
-                $wpruFields['requestUrl'] = $wpruRow->requestUrl;
-                $wpruFields['destinationUrl'] = $wpruRow->destinationUrl;
+                $wpruFields['wpru-redirect-name'] = $wpruRow->wpru_redirect_name;
+                $wpruFields['wpru-request-url'] = $wpruRow->wpru_request_url;
+                $wpruFields['wpru-destination-url'] = $wpruRow->wpru_destination_url;
             }
 
             return $wpruFields;
@@ -62,26 +62,26 @@ class wpru_settings {
         }
     }
 
-    public static function wpruCreateTable() {
+    public static function wpru_create_fields() {
         global $wpdb;
-        $wpruSQL  = "CREATE TABLE kau_wp_redirects_url (id BIGINT(25) PRIMARY KEY AUTO_INCREMENT,name TEXT,requestUrl TEXT, destinationUrl TEXT)";
+        $wpruSQL  = "CREATE TABLE wpru_dbtable (id BIGINT(25) PRIMARY KEY AUTO_INCREMENT,wpru_redirect_name TEXT,wpru_request_url TEXT, wpru_destination_url TEXT)";
         $wpdb->query($wpruSQL);
     }
 
-    public static function checkWpruTable() {
+    public static function wpru_check_table() {
         global $wpdb;
-        $wpruSQL = "SHOW TABLES LIKE 'kau_wp_redirects_url'";
+        $wpruSQL = "SHOW TABLES LIKE 'wpru_dbtable'";
         $result = $wpdb->query($wpruSQL);
         if ($result != 1) {
-            self::wpruCreateTable();
+            self::wpru_create_fields();
         }
     }
 
-    public static function wpruGetAll() {
+    public static function wpru_get_all() {
         global $wpdb;
-        self::checkWpruTable();
+        self::wpru_check_table();
 
-        $wpruSQL = "SELECT * FROM kau_wp_redirects_url ORDER by id ASC";
+        $wpruSQL = "SELECT * FROM wpru_dbtable ORDER by id ASC";
         
         if ($wpdb->query($wpruSQL)) {
             $wpruId = array();

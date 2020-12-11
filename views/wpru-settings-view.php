@@ -7,12 +7,12 @@
 
     <div class="wpru-alert">
         <?php
-        wpru_settings::wpruSubmission($_POST);
+        WPRU_settings::wpru_submission($_POST);
         ?>        
     </div>
 
     <form action="" method="post">
-        <input type="hidden" name="wpru_settings_submit" value="true">
+        <input type="hidden" name="wpru-settings-submit" value="true">
 
         <div class="kau-action-name-row">
             <div class="wpru-name"><?php esc_html_e('Name', 'wp-redirect-url'); ?></div> 
@@ -22,18 +22,19 @@
         </div>
 
         <?php
-        $custom_redirects = wpru_settings::wpruGetAll();
+        $custom_redirects = WPRU_settings::wpru_get_all();
 
         if ($custom_redirects) {
-            foreach (wpru_settings::wpruGetAll() as $wpruId) {
+            foreach (WPRU_settings::wpru_get_all() as $wpruId) {
 
-                $wpruFields = wpru_settings::wpruGetFields($wpruId);
+                $wpruFields = WPRU_settings::wpru_get_fields($wpruId);
+               
                 ?>
 
                 <div id="wpruFields<?php echo $wpruId; ?>" class="kau-action-field-row">
-                    <div class="wpru-name"><input type="text" class="form__field" placeholder="Name of Redirection" name="name[]"  value="<?php echo $wpruFields['name']; ?>"/></div> 
-                    <div class="wpru-ru-field"><input type="text" class="form__field" placeholder="input Your Request url" name="requestUrl[]" required value="<?php echo $wpruFields['requestUrl']; ?>"/></div>
-                    <div class="wpru-du-field"><input type="text" placeholder="Your Destination url Goes Here" name="destinationUrl[]" required class="form__field" value="<?php echo $wpruFields['destinationUrl']; ?>"/></div>  
+                    <div class="wpru-name"><input type="text" placeholder="Name of Redirection" name="wpru-redirect-name[]"  value="<?php echo $wpruFields['wpru-redirect-name']; ?>"/></div> 
+                    <div class="wpru-ru-field"><input type="text" placeholder="input Your Request url" name="wpru-request-url[]" required value="<?php echo $wpruFields['wpru-request-url']; ?>"/></div>
+                    <div class="wpru-du-field"><input type="text" placeholder="Your Destination url Goes Here" name="wpru-destination-url[]" required value="<?php echo $wpruFields['wpru-destination-url']; ?>"/></div>  
                     <div class="wpru-action-field"><a  class="delete-wpru" href="#" data-id="<?php echo $wpruId; ?>"><button type="button" class="block">Remove URL</button></a></div>
                 </div>
 
